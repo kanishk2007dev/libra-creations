@@ -1,0 +1,428 @@
+import React, { useState, useEffect } from 'react';
+import { Phone, Send, ShoppingBag, X, Menu, MessageCircle, Truck, AlertCircle, Instagram, Play } from 'lucide-react';
+
+const LOGO_URL = "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20152210.png";
+
+const PRODUCT_IMAGES = [
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20143818.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20143831.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20143857.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20143919.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20143944.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20144000.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20144025.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20144454.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20144600.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150215.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150231.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150259.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150319.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150419.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150432.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150553.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150655.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150745.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20150805.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151033.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151045.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151111.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151122.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151141.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151300.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151315.png",
+  "https://raw.githubusercontent.com/kanishk2007dev/libra-creations/refs/heads/main/Screenshot%202026-02-18%20151533.png"
+];
+
+const VIDEO_URLS = [
+  "https://github.com/kanishk2007dev/libra-creations/raw/refs/heads/main/SaveClip.App_AQMIYD7mkCBpYIJ4P8RWggwF-Wu12Vgwh0qNiauqI_ZKv0ODKx0duTQZe-g-NvCJCfgzAybKBHTTyhw5V0sK_bz4yW4NW5WJGUy3MTs.mp4",
+  "https://github.com/kanishk2007dev/libra-creations/raw/refs/heads/main/SaveClip.App_AQMXjvH9liXqmexRvVJspvRwhY_t3Z1OpveuipDLG0UjPsqObHcgG5xlidfv4OySYhXSXnpICAgxgQG1alr9RZOzi60XKYYh0I4vXNM.mp4",
+  "https://github.com/kanishk2007dev/libra-creations/raw/refs/heads/main/SaveClip.App_AQMnuYLQOpFSBZSOUpd3Sd6wpGB5kz1EXn8VJ0sRL8cAv6skox02awi1e8DTAaO6ycvnp9RZHIEuhDKoMkHf6ZlIDbdx4j0FxaSJHbU.mp4",
+  "https://github.com/kanishk2007dev/libra-creations/raw/refs/heads/main/SaveClip.App_AQNDJDTA1QrUiKYiA2evv8lG2QTF0PaMAPHgk-svw3UAIIH6I-R3QfnQs-kxLuluEM0_dcATwBallSv4Ru6UU8hGWS0tMpeLN40qZ9Q.mp4",
+  "https://github.com/kanishk2007dev/libra-creations/raw/refs/heads/main/SaveClip.App_AQNTmLhYi2YhDgK4oHpRiJs4B8k4-4qPynh2DzNbuObiVHFqDOSw_dl6QPiwnzAU-hv12GrhyyzIzz0UA_GoY7R35T3r7Tsc9_lVvWg.mp4",
+  "https://github.com/kanishk2007dev/libra-creations/raw/refs/heads/main/SaveClip.App_AQOm4jDR7nkHdEUsWNwSJ_-L9cndsESqrcEUDGpF7APueFCvTcyq9Tz-1v_WBKaKGP5yu8oEth5Zm3hn3NBvUzPJerI0Wy32ZMWL9Yc.mp4"
+];
+
+const CONTACT_NUMBER = "+918839182836";
+const WHATSAPP_LINK = `https://wa.me/${CONTACT_NUMBER.replace('+', '')}?text=Hi%20Libra%20Creations,%20I%20would%20like%20to%20place%20an%20order.`;
+const INSTAGRAM_LINK = "https://www.instagram.com/libracreation_/";
+
+// --- CSS 3D Background Components ---
+
+const FloatingCard3D = ({ url, style, delay = 0, duration = 6 }) => {
+  return (
+    <div 
+      className="absolute bg-white shadow-xl rounded-lg overflow-hidden animate-float-3d"
+      style={{
+        ...style,
+        animationDelay: `${delay}s`,
+        animationDuration: `${duration}s`,
+        backfaceVisibility: 'hidden',
+      }}
+    >
+      <img src={url} alt="Decorative" className="w-full h-full object-cover opacity-80" />
+    </div>
+  );
+};
+
+const Background3D = () => {
+  return (
+    <div className="fixed inset-0 z-[-1] bg-stone-50 overflow-hidden perspective-container">
+      {/* Inject custom keyframes for floating */}
+      <style>
+        {`
+          .perspective-container {
+            perspective: 1000px;
+          }
+          .transform-style-3d {
+            transform-style: preserve-3d;
+          }
+          @keyframes float3d {
+            0%, 100% { transform: translateY(0) rotateY(var(--rot-y)) rotateX(var(--rot-x)) translateZ(var(--z-depth)); }
+            50% { transform: translateY(-20px) rotateY(var(--rot-y)) rotateX(var(--rot-x)) translateZ(var(--z-depth)); }
+          }
+          .animate-float-3d {
+            animation-name: float3d;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            /* Default vars to prevent errors if not set inline */
+            --rot-y: 0deg;
+            --rot-x: 0deg;
+            --z-depth: 0px;
+          }
+        `}
+      </style>
+
+      <div className="relative w-full h-full transform-style-3d">
+        {/* Left Side */}
+        <FloatingCard3D 
+          url={PRODUCT_IMAGES[0]} 
+          style={{ top: '20%', left: '5%', width: '180px', height: '240px', '--rot-y': '15deg', '--rot-x': '5deg', '--z-depth': '-100px' }} 
+          delay={0}
+        />
+        <FloatingCard3D 
+          url={PRODUCT_IMAGES[4]} 
+          style={{ top: '60%', left: '10%', width: '150px', height: '200px', '--rot-y': '25deg', '--rot-x': '-5deg', '--z-depth': '-200px' }} 
+          delay={1.5}
+        />
+
+        {/* Right Side */}
+        <FloatingCard3D 
+          url={PRODUCT_IMAGES[2]} 
+          style={{ top: '15%', right: '5%', width: '180px', height: '240px', '--rot-y': '-15deg', '--rot-x': '5deg', '--z-depth': '-100px' }} 
+          delay={0.5}
+        />
+        <FloatingCard3D 
+          url={PRODUCT_IMAGES[6]} 
+          style={{ top: '65%', right: '12%', width: '160px', height: '210px', '--rot-y': '-25deg', '--rot-x': '-5deg', '--z-depth': '-150px' }} 
+          delay={2}
+        />
+
+        {/* Center / Deep Background */}
+        <FloatingCard3D 
+          url={PRODUCT_IMAGES[8]} 
+          style={{ top: '10%', left: '35%', width: '120px', height: '160px', '--rot-y': '5deg', '--rot-x': '10deg', '--z-depth': '-400px', opacity: 0.5 }} 
+          delay={1}
+        />
+        <FloatingCard3D 
+          url={PRODUCT_IMAGES[10]} 
+          style={{ bottom: '20%', right: '35%', width: '120px', height: '160px', '--rot-y': '-5deg', '--rot-x': '-10deg', '--z-depth': '-450px', opacity: 0.5 }} 
+          delay={2.5}
+        />
+        
+        {/* Soft atmospheric gradients */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-rose-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </div>
+    </div>
+  );
+};
+
+// --- Main UI Components ---
+
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-4'}`}>
+      <div className="container mx-auto px-4 flex justify-between items-center">
+        <a href="#" className="flex items-center gap-3 group">
+          <img src={LOGO_URL} alt="Libra Creations Logo" className="h-12 w-12 rounded-full object-cover border-2 border-stone-200 group-hover:border-rose-300 transition-colors" />
+          <div className="flex flex-col">
+            <span className={`font-serif text-xl font-bold tracking-wide ${isScrolled ? 'text-stone-800' : 'text-stone-900'}`}>Libra Creations</span>
+            <span className="text-xs uppercase tracking-widest text-rose-500 font-medium">By Nidhi Nayak</span>
+          </div>
+        </a>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8">
+          <a href="#collection" className="text-stone-700 hover:text-rose-600 font-medium transition-colors">Collection</a>
+          <a href="#videos" className="text-stone-700 hover:text-rose-600 font-medium transition-colors">Reels</a>
+          <a href="#about" className="text-stone-700 hover:text-rose-600 font-medium transition-colors">About</a>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="bg-stone-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-rose-600 transition-colors flex items-center gap-2">
+            <MessageCircle size={16} />
+            Book Now
+          </a>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button className="md:hidden text-stone-800" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg border-b border-stone-100 p-4 shadow-lg flex flex-col gap-4 animate-fade-in-down">
+          <a href="#collection" className="text-lg font-medium text-stone-700" onClick={() => setIsMenuOpen(false)}>Collection</a>
+          <a href="#videos" className="text-lg font-medium text-stone-700" onClick={() => setIsMenuOpen(false)}>Reels</a>
+          <a href="#about" className="text-lg font-medium text-stone-700" onClick={() => setIsMenuOpen(false)}>About Us</a>
+          <a href={WHATSAPP_LINK} className="bg-rose-500 text-white p-3 rounded-lg text-center font-medium flex justify-center items-center gap-2" onClick={() => setIsMenuOpen(false)}>
+            <MessageCircle size={20} /> Chat on WhatsApp
+          </a>
+          <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-3 rounded-lg text-center font-medium flex justify-center items-center gap-2" onClick={() => setIsMenuOpen(false)}>
+            <Instagram size={20} /> Follow on Instagram
+          </a>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+const Hero = () => {
+  return (
+    <div className="relative pt-32 pb-20 px-4 min-h-[70vh] flex flex-col items-center justify-center text-center overflow-hidden">
+      {/* 3D background handles the visuals, so we just center the text */}
+      
+      <div className="relative z-10 max-w-4xl mx-auto space-y-8 backdrop-blur-sm bg-white/30 p-8 rounded-3xl border border-white/20 shadow-xl">
+        <div className="inline-block px-4 py-1.5 bg-rose-100/90 backdrop-blur-md text-rose-800 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
+          New Collection 2026
+        </div>
+        <h1 className="text-5xl md:text-8xl font-serif text-stone-900 leading-tight drop-shadow-sm">
+          Echoes of <span className="text-rose-600 italic">tradition</span> <br /> in every colour.
+        </h1>
+        <p className="text-lg md:text-xl text-stone-700 font-medium max-w-lg mx-auto leading-relaxed">
+          Discover exclusive ethnic wear crafted with love. Handpicked designs that bring out the best in you.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <a href="#collection" className="px-8 py-4 bg-stone-900 text-white rounded-full font-medium hover:bg-stone-800 transition-transform hover:scale-105 shadow-lg shadow-stone-300/50">
+            View Collection
+          </a>
+          <a href={WHATSAPP_LINK} className="px-8 py-4 bg-white/80 backdrop-blur-md text-stone-900 border border-white rounded-full font-medium hover:bg-white transition-colors flex items-center justify-center gap-2">
+            <Phone size={18} />
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PolicyBanner = () => {
+  return (
+    <div className="bg-rose-50/80 backdrop-blur-md border-y border-rose-100 py-6 relative z-10">
+      <div className="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16 text-sm md:text-base font-medium text-rose-900">
+        <div className="flex items-center gap-2">
+          <Truck size={20} className="text-rose-500" />
+          <span>Free Shipping</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <AlertCircle size={20} className="text-rose-500" />
+          <span>No Return Policy</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <ShoppingBag size={20} className="text-rose-500" />
+          <span>Premium Quality</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ProductCard = ({ src, index }) => {
+  return (
+    <div className="group relative overflow-hidden rounded-2xl bg-white/40 backdrop-blur-md border border-white/50 shadow-sm hover:shadow-xl transition-all duration-300">
+      <div className="aspect-[3/4] overflow-hidden">
+        <img 
+          src={src} 
+          alt={`Libra Creation Product ${index + 1}`} 
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+      </div>
+      
+      {/* Hover Overlay */}
+      <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10">
+        <a 
+          href={WHATSAPP_LINK}
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="block w-full bg-white/90 backdrop-blur text-stone-900 text-center py-3 rounded-xl font-bold shadow-lg hover:bg-rose-50 transition-colors flex items-center justify-center gap-2"
+        >
+          <MessageCircle size={18} className="text-green-600" />
+          Inquire Price
+        </a>
+      </div>
+    </div>
+  );
+};
+
+const VideoCard = ({ src }) => {
+  return (
+    <div className="group relative overflow-hidden rounded-2xl bg-white/40 backdrop-blur-md border border-white/50 shadow-sm hover:shadow-xl transition-all duration-300 aspect-[9/16]">
+      <video
+        src={src}
+        className="w-full h-full object-cover"
+        loop
+        muted
+        playsInline
+        autoPlay
+      />
+      
+      {/* Overlay Icon */}
+      <div className="absolute top-4 right-4 bg-black/20 backdrop-blur-sm p-2 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
+        <Play size={16} fill="white" />
+      </div>
+    </div>
+  );
+};
+
+const VideoSection = () => {
+  return (
+    <section id="videos" className="py-20 bg-rose-50/50 backdrop-blur-xl relative z-10">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-serif text-stone-900 mb-4">Style in Motion</h2>
+          <div className="h-1 w-20 bg-rose-400 mx-auto rounded-full mb-6" />
+          <p className="text-stone-600">Watch our latest collections come to life.</p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {VIDEO_URLS.map((src, index) => (
+            <VideoCard key={index} src={src} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Collection = () => {
+  return (
+    <section id="collection" className="py-20 bg-white/80 backdrop-blur-xl relative z-10">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-serif text-stone-900 mb-4">Latest Arrivals</h2>
+          <div className="h-1 w-20 bg-rose-400 mx-auto rounded-full mb-6" />
+          <p className="text-stone-600">Explore our curated selection of timeless pieces.</p>
+        </div>
+
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
+          {PRODUCT_IMAGES.map((src, index) => (
+            <div key={index} className="break-inside-avoid">
+               <ProductCard src={src} index={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ContactSection = () => {
+  return (
+    <section className="py-20 bg-stone-900/90 backdrop-blur-xl text-white relative overflow-hidden z-10 border-t border-white/10">
+      <div className="container mx-auto px-4 relative z-10 text-center">
+        <h2 className="text-3xl md:text-5xl font-serif mb-6">Ready to Order?</h2>
+        <p className="text-stone-300 max-w-xl mx-auto mb-10 text-lg">
+          We are just a message away. DM us directly to book your favorite pieces or inquire about customization.
+        </p>
+
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+          <a 
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full md:w-auto px-8 py-4 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold text-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg shadow-green-900/20"
+          >
+            <MessageCircle className="w-6 h-6" />
+            WhatsApp: +91 8839182836
+          </a>
+          
+          <a 
+            href={INSTAGRAM_LINK}
+            target="_blank"
+            rel="noopener noreferrer" 
+            className="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-xl font-bold text-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 shadow-lg shadow-purple-900/20"
+          >
+            <Instagram className="w-6 h-6" />
+            DM on Instagram
+          </a>
+        </div>
+        
+        <div className="mt-12 p-6 bg-white/5 rounded-2xl max-w-2xl mx-auto border border-white/10 backdrop-blur-md">
+          <h3 className="text-xl font-semibold mb-4 text-rose-300">How to Place an Order</h3>
+          <ol className="text-left text-stone-300 space-y-3 list-decimal list-inside">
+            <li>Take a screenshot of the outfit you love from our collection.</li>
+            <li>Click the <span className="text-white font-bold">WhatsApp</span> or <span className="text-white font-bold">Instagram</span> button above.</li>
+            <li>Send us the screenshot and your size details.</li>
+            <li>We will confirm availability and payment details.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="bg-stone-950 text-stone-400 py-12 border-t border-stone-800 relative z-10">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex items-center gap-3">
+          <img src={LOGO_URL} alt="Footer Logo" className="h-10 w-10 rounded-full grayscale opacity-80" />
+          <div>
+            <h4 className="text-white font-serif tracking-wide">Libra Creations</h4>
+            <p className="text-xs">Echoes of tradition in every colour</p>
+          </div>
+        </div>
+        
+        <div className="text-sm">
+          &copy; {new Date().getFullYear()} Libra Creations. All rights reserved.
+        </div>
+        
+        <div className="flex gap-4">
+           <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer" className="hover:text-rose-400 transition-colors">
+             <div className="w-8 h-8 rounded-full bg-stone-800 flex items-center justify-center group">
+               <Instagram size={16} className="group-hover:scale-110 transition-transform"/>
+             </div>
+           </a>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+const App = () => {
+  return (
+    <div className="min-h-screen font-sans text-stone-900 scroll-smooth relative">
+      <Background3D />
+      <Navbar />
+      <Hero />
+      <PolicyBanner />
+      <Collection />
+      <VideoSection />
+      <ContactSection />
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
